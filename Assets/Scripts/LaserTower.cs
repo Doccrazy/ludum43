@@ -11,6 +11,8 @@ public class LaserTower : MonoBehaviour {
 	public float prepareTime = 0.25f;
 	public float onTime = 0.5f;
 	public Laser laser;
+	public AudioSource powerupSound;
+	public AudioSource activeSound;
 	private Laser _laser;
 
 	// Use this for initialization
@@ -40,10 +42,13 @@ public class LaserTower : MonoBehaviour {
 		yield return new WaitForSeconds(Random.Range(0f, onTime + offTime + prepareTime));
 		while (true) {
 			yield return new WaitForSeconds(offTime);
+			powerupSound.Play();
 			_laser.gameObject.SetActive(true);
 			yield return new WaitForSeconds(prepareTime);
+			activeSound.Play();
 			_laser.SetHot();
 			yield return new WaitForSeconds(onTime);
+			activeSound.Stop();
 			_laser.gameObject.SetActive(false);
 		}
 	}

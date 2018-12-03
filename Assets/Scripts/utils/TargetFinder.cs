@@ -2,14 +2,14 @@ using UnityEngine;
 
 namespace utils {
     public class TargetFinder {
-        public static GameObject FindTarget(Transform me) {
+        public static GameObject FindTarget(Transform me, float range) {
             if (!me) {
                 return null;
             }
 
             var ctl = Object.FindObjectOfType<PlayerControl>();
             var player = ctl ? ctl.gameObject : null;
-            var loot = GetClosestEnemy(me, GameObject.FindGameObjectsWithTag("DroppedLoot"));
+            var loot = GetClosestEnemy(me, GameObject.FindGameObjectsWithTag("DroppedLoot"), range);
             if (loot) {
                 player = loot;
             }
@@ -17,7 +17,7 @@ namespace utils {
             return player;
         }
 
-        static GameObject GetClosestEnemy(Transform transform, GameObject[] enemies)
+        static GameObject GetClosestEnemy(Transform transform, GameObject[] enemies, float range)
         {
             GameObject tMin = null;
             float minDist = Mathf.Infinity;
@@ -25,7 +25,7 @@ namespace utils {
             foreach (GameObject t in enemies)
             {
                 float dist = Vector3.Distance(t.transform.position, currentPos);
-                if (dist < minDist)
+                if (dist < range && dist < minDist)
                 {
                     tMin = t;
                     minDist = dist;

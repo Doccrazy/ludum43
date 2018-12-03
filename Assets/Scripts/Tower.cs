@@ -24,7 +24,7 @@ public class Tower : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		var target = TargetFinder.FindTarget(transform);
+		var target = TargetFinder.FindTarget(transform, range*1.2f);
 		if (!target) {
 			return;
 		}
@@ -52,7 +52,7 @@ public class Tower : MonoBehaviour {
 	private IEnumerator fire() {
 		while (true) {
 			yield return new WaitForSeconds(1f/fireRate);
-			var target = TargetFinder.FindTarget(transform);
+			var target = TargetFinder.FindTarget(transform, range*1.2f);
 			if (inRange(target, 1.0f) && visible(target) && Mathf.Abs(angleToTarget(target)) < maxAngle) {
 				doFire(target);
 			}

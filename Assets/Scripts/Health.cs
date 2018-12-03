@@ -10,6 +10,7 @@ public class Health : MonoBehaviour {
     public GameObject explosion;
     public bool invulnerable;
     public int points;
+    public AudioSource hitSound;
 
     // Use this for initialization
     void Start () {
@@ -23,6 +24,10 @@ public class Health : MonoBehaviour {
     public void Damage(float amount) {
         if (invulnerable) {
             return;
+        }
+
+        if (hitSound) {
+            hitSound.Play();
         }
         hp = Math.Max(0f, hp - amount);
         if (hp <= 0) {

@@ -10,7 +10,7 @@ public class PointsLabel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		_lastScore = GameState.GetTotalScore();
 	}
 
 	// Update is called once per frame

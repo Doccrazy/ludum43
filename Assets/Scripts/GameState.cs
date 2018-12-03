@@ -7,7 +7,7 @@ public static class GameState {
     public static int Lives = 2;
 
     public static void ResetLevel() {
-        Loot = Loot/2;
+        Loot = 0;
     }
 
     public static void ResetAll() {
@@ -15,6 +15,11 @@ public static class GameState {
         Level = 1;
         Lives = 2;
         Score = 0;
+    }
+
+    public static void CommitScore() {
+        Score = GetTotalScore();
+        Loot = 0;
     }
 
     public static int GetTotalScore() {

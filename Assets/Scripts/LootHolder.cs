@@ -5,6 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class LootHolder : MonoBehaviour {
     public GameObject droppedLoot;
+    public AudioSource pickupSound;
 
     // Use this for initialization
     void Start () {
@@ -16,10 +17,9 @@ public class LootHolder : MonoBehaviour {
             GameState.Loot--;
             var l = Instantiate(droppedLoot, transform.position - transform.right * 0.5f, Quaternion.identity);
             var rb = l.GetComponent<Rigidbody2D>();
-            rb.angularVelocity = Random.Range(-25f, 25f);
+            rb.angularVelocity = Random.Range(-40f, 40f);
             rb.velocity = GetComponent<Rigidbody2D>().velocity;
             rb.AddForce(-transform.right.normalized * 50f);
-            Destroy(l, 3f);
         }
     }
 
@@ -27,6 +27,7 @@ public class LootHolder : MonoBehaviour {
         if (other.gameObject.CompareTag("Loot")) {
             GameState.Loot++;
             Destroy(other.gameObject);
+            pickupSound.Play();
         }
     }
 }

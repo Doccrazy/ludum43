@@ -8,6 +8,7 @@ using UnityStandardAssets.CrossPlatformInput;
 public class Restarter : MonoBehaviour {
 	public GameObject player;
 	public WinZone winZone;
+	public AudioSource warpSound;
 	private bool _warping;
 
 	// Use this for initialization
@@ -20,6 +21,7 @@ public class Restarter : MonoBehaviour {
 		if (CrossPlatformInputManager.GetButtonDown("Submit") && !_warping && (!player || winZone.triggered)) {
 			if (winZone.triggered) {
 				_warping = true;
+				GameState.CommitScore();
 				StartCoroutine(WarpNextLevel());
 			}
 			else {
@@ -34,9 +36,14 @@ public class Restarter : MonoBehaviour {
 				SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
 			}
 		}
+
+		if (CrossPlatformInputManager.GetButtonDown("Cancel")) {
+			Application.Quit();
+		}
 	}
 
 	private IEnumerator WarpNextLevel() {
+		warpSound.Play();
 		player.GetComponent<PlayerControl>().DisableSpeedLimit();
 		var tStart = Time.time;
 		while (Time.time - tStart < 4.0f) {

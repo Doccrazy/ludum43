@@ -17,7 +17,7 @@ public class WinZone : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.GetComponent<Health>() == player) {
+		if (other.gameObject.GetComponent<Health>() == player && !triggered) {
 			player.invulnerable = true;
 			GameState.AddScore(5000 * GameState.Level);
 			triggered = true;

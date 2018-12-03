@@ -18,7 +18,7 @@ public class Homing : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         rb.AddRelativeForce(Vector2.right * accelForce);
-        var target = TargetFinder.FindTarget(transform);
+        var target = TargetFinder.FindTarget(transform, 15f);
         if (target != null) {
             Vector2 to = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
             //Debug.Log(Vector3.Angle(to, rb.velocity));
